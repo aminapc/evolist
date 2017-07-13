@@ -20,7 +20,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     String firstNameText, lastNameText, cityText, emailAddressText,
             usernameText, passwordText, confirmPasswordText;
-    boolean licenseAgreement;
+    boolean licenseAgreementIsChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         usernameText = username.getText().toString();
         passwordText = password.getText().toString();
         confirmPasswordText = confirmPassword.getText().toString();
-        licenseAgreement = agreementCheckBox.isChecked();
+        licenseAgreementIsChecked = agreementCheckBox.isChecked();
     }
 }
 
