@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,30 +15,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.evoteam.evolist.SignUpActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="22dp"
-        android:id="@+id/firstNameEditText"
-        android:hint="نام"
-        android:textColorHint="#33abda"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:textColorHint="#33abda"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/lastNameEditText"
-        android:layout_alignLeft="@+id/lastNameEditText"
-        android:layout_alignStart="@+id/lastNameEditText"
-        android:id="@+id/cityEditText"
-        android:hint="شهر"/>
 
     <EditText
         android:textColorHint="#33abda"
@@ -50,17 +29,6 @@
         android:hint="نام کاربری"
         android:layout_toRightOf="@+id/imageView6"
         android:layout_toEndOf="@+id/imageView6"/>
-
-    <Button
-        android:background="@drawable/signupbutton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="21dp"
-        android:layout_marginEnd="21dp"
-        android:id="@+id/signUpButton"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -102,16 +70,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
-    <CheckBox
-        android:text="I Agree."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/licenseAgreementCheckBox"
-        android:layout_marginBottom="12dp"
-        android:layout_above="@+id/signUpButton"
-        android:layout_alignRight="@+id/imageView3"
-        android:layout_alignEnd="@+id/imageView3"/>
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,19 +82,6 @@
         android:layout_marginBottom="12dp"
         android:layout_alignLeft="@+id/imageView3"
         android:layout_alignStart="@+id/imageView3"/>
-
-    <TextView
-        android:text="من هیچ قصد جنسی ای برای استفاده از این برنامه ندارم."
-        android:textStyle="bold"
-        style="@android:style/Widget.PopupMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/licenseTextView"
-        android:layout_above="@+id/licenseAgreementCheckBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -155,26 +100,6 @@
         android:layout_above="@+id/cityEditText"
         android:layout_toRightOf="@+id/imageView6"
         android:layout_toEndOf="@+id/imageView6"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/redstar"
-        android:id="@+id/imageView5"
-        android:layout_above="@+id/cityEditText"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/redstar"
-        android:id="@+id/imageView4"
-        android:layout_above="@+id/imageView3"
-        android:layout_toLeftOf="@+id/firstNameEditText"
-        android:layout_toStartOf="@+id/firstNameEditText"
-        android:layout_marginRight="13dp"
-        android:layout_marginEnd="13dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -202,5 +127,94 @@
         android:layout_toLeftOf="@+id/confirmPasswordEditText"
         android:layout_toStartOf="@+id/confirmPasswordEditText"
         android:id="@+id/imageView9"/>
+
+    <TextView
+        android:text="من هیچ قصد جنسی ای برای استفاده از این برنامه ندارم."
+        android:textStyle="bold"
+        style="@android:style/Widget.PopupMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/licenseTextView"
+        android:layout_above="@+id/licenseAgreementCheckBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:background="@drawable/signupbutton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUpButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/licenseAgreementCheckBox"
+        android:layout_above="@+id/signUpButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"/>
+
+    <TextView
+        android:textStyle="bold"
+        style="@android:style/Widget.PopupMenu"
+        android:text="تایید میکنم."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignBaseline="@+id/licenseAgreementCheckBox"
+        android:layout_alignBottom="@+id/licenseAgreementCheckBox"
+        android:layout_toLeftOf="@+id/licenseAgreementCheckBox"
+        android:layout_toStartOf="@+id/licenseAgreementCheckBox"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/firstNameEditText"
+        android:hint="نام"
+        android:ems="10"
+        android:gravity="right"
+        android:textColorHint="#33abda"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/redstar"
+        android:id="@+id/imageView5"
+        android:layout_above="@+id/cityEditText"
+        android:layout_toLeftOf="@+id/lastNameEditText"
+        android:layout_toStartOf="@+id/lastNameEditText"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/redstar"
+        android:id="@+id/imageView4"
+        android:layout_above="@+id/imageView3"
+        android:layout_toLeftOf="@+id/firstNameEditText"
+        android:layout_toStartOf="@+id/firstNameEditText"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:textColorHint="#33abda"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/cityEditText"
+        android:hint="شهر"
+        android:layout_below="@+id/lastNameEditText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

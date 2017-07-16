@@ -1,7 +1,10 @@
 package com.evoteam.evolist;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,11 +15,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
     EditText firstName, lastName, city, emailAddress, username, password, confirmPassword;
     CheckBox agreementCheckBox;
     Button signUpButton;
+
+    User currentUser = new User();
 
     String firstNameText, lastNameText, cityText, emailAddressText,
             usernameText, passwordText, confirmPasswordText;
@@ -42,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         username = (EditText) findViewById(R.id.choosingUsernameEditText);
         password = (EditText) findViewById(R.id.choosingPasswordEditText);
         confirmPassword = (EditText) findViewById(R.id.confirmPasswordEditText);
+        confirmPassword.addTextChangedListener(this);
         agreementCheckBox = (CheckBox) findViewById(R.id.licenseAgreementCheckBox);
         agreementCheckBox.setChecked(false);
         agreementCheckBox.setOnCheckedChangeListener(this);
@@ -57,22 +63,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        getDataAndSetFields();
-//        Log.d("farzad", firstNameText);
-        if(v.getAlpha() == 1.0){
+        getDataAndSetUserProfile();
+        if(v.getAlpha() == 1.0 && confirmPassword.getCurrentTextColor() == Color.parseColor("GREEN")){
+            Log.d("***", String.valueOf(correctData()));
 
             if(correctData()){
-
-                if(passwordText == confirmPasswordText){
-                    Toast.makeText(this, "next level", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(this, "رمز عبور انتخابی تایید نشده است.", Toast.LENGTH_SHORT).show();
-                    Log.d("farzad", passwordText);
-                    confirmPassword.setFocusable(true);
-                }
+                Toast.makeText(this, "next level", Toast.LENGTH_SHORT).show();
+                //done
 
             }else{
-                Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را پر کرده اید.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -85,11 +85,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private boolean correctData() {
-        if(firstNameText != ""  && lastNameText != ""
-                && emailAddressText != "" && usernameText != ""
-                && passwordText != "" && confirmPasswordText != ""
-                && firstNameText.length() > 2 && lastNameText.length() > 3
-                && emailAddressText.contains("@") && usernameText.length() > 3)
+        if(!currentUser.getFirstName().equals(" ")  && !currentUser.getFamilyName().equals(" ")
+                && !currentUser.getEmailAddress().equals(" ") && !currentUser.getUsername().equals(" ")
+                && !currentUser.getPassword().equals(" "))
             return true;
         return false;
     }
@@ -103,15 +101,46 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public void getDataAndSetFields() {
-        firstNameText = firstName.getText().toString();
-        lastNameText = lastName.getText().toString();
-        cityText = city.getText().toString();
-        emailAddressText = emailAddress.getText().toString();
-        usernameText = username.getText().toString();
-        passwordText = password.getText().toString();
-        confirmPasswordText = confirmPassword.getText().toString();
-        licenseAgreementIsChecked = agreementCheckBox.isChecked();
+    public void getDataAndSetUserProfile() {
+        try {
+            currentUser.setFirstName(firstName.getText().toString() + " ");
+            currentUser.setFamilyName(lastName.getText().toString() + " ");
+            currentUser.setCityName(city.getText().toString() + " ");
+            currentUser.setEmailAddress(emailAddress.getText().toString() + " ");
+            currentUser.setUsername(username.getText().toString() + " ");
+            currentUser.setLicenseAgreement(agreementCheckBox.isChecked());
+            if (password.getText().toString().equals(confirmPassword.getText().toString()))
+                currentUser.setPassword(password.getText().toString() + " ");
+            else
+                currentUser.setPassword(" ");
+        }catch (Exception e){
+            Toast.makeText(this, "لطفا تمام فیلدهای ضروری را پر کنید.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        confirmPasswordText = String.valueOf(confirmPassword.getText());
+        passwordText = String.valueOf(password.getText());
+
+
+        Log.d("***", String.valueOf(confirmPasswordText == passwordText));
+        if(confirmPasswordText.equals(passwordText))
+            confirmPassword.setTextColor(Color.parseColor("GREEN"));
+        else
+            confirmPassword.setTextColor(Color.parseColor("RED"));
+
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
 
