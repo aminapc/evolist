@@ -10,6 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/back"
     tools:context="com.evoteam.evolist.SignUpOrInActivity">
 
     <TextView
@@ -25,28 +26,30 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/signup2"
+        app:srcCompat="@drawable/signup"
         android:id="@+id/signUpImageButton"
-        android:layout_alignTop="@+id/signInImageButton"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"/>
+        android:background="@drawable/bg"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/signInImageButton"
+        android:layout_alignStart="@+id/signInImageButton"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        app:srcCompat="@drawable/logo"
         android:id="@+id/imageView"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="39dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignLeft="@+id/signUpImageButton"
+        android:layout_alignStart="@+id/signUpImageButton"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/signin"
+        app:srcCompat="@drawable/login"
+        android:background="@drawable/bg"
         android:id="@+id/signInImageButton"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"/>
+        android:layout_below="@+id/signUpImageButton"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
