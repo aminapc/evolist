@@ -34,14 +34,13 @@
         android:layout_alignStart="@+id/signInImageButton"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo"
         android:id="@+id/imageView"
-        android:layout_marginTop="39dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/applogo"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/signUpImageButton"
-        android:layout_alignStart="@+id/signUpImageButton"/>
+        android:layout_alignLeft="@+id/licenseTextView"
+        android:layout_alignStart="@+id/licenseTextView"/>
 
     <ImageButton
         android:layout_width="wrap_content"
