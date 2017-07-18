@@ -10,6 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/back"
     tools:context="com.evoteam.evolist.SignInActivity">
 
     <EditText
@@ -25,17 +26,15 @@
         android:layout_marginTop="33dp"
         android:id="@+id/passWordEditText"/>
 
-    <Button
-        android:background="@drawable/signinbutton"
+    <ImageButton
+        android:background="@drawable/login2back"
+        android:src="@drawable/login2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/signInButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="36dp"
-        android:id="@+id/signInButton"/>
+        android:layout_alignParentEnd="true"/>
 
     <TextView
         android:text="Username Or Password is Incorrect!"
@@ -49,11 +48,10 @@
         android:layout_centerHorizontal="true"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="56dp"
         android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/applogo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
@@ -62,11 +60,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="30"
-        android:layout_marginTop="85dp"
         android:id="@+id/userNameEditText"
         android:hint="username"
         android:textColorHint="#33abda"
-        android:layout_below="@+id/imageView2"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 </RelativeLayout>

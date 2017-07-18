@@ -25,7 +25,7 @@ public class User {
     }
 
     public void setEmailAddress(String emailAddress) {
-        if(emailAddress.length() < 3 && emailAddress.contains("@"))
+        if(emailAddress.length() > 3 && emailAddress.contains("@"))
            this.emailAddress = emailAddress;
         else
             this.emailAddress = " ";
