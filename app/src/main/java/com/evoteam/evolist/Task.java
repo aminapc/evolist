@@ -71,4 +71,9 @@ public class Task {
             this.day = " ";
 
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button signInButton;
+    ImageButton signInImageButton;
     EditText usernameEditText, passwordEditText;
     TextView wrongInformation;
 
@@ -25,9 +25,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
-        //button
-        signInButton = (Button) findViewById(R.id.signInButton);
-        signInButton.setOnClickListener(this);
+        //imageButton
+        signInImageButton = (ImageButton) findViewById(R.id.signInImageButtonInSignInActivity);
+        signInImageButton.setOnClickListener(this);
         //edit texts
         usernameEditText = (EditText) findViewById(R.id.userNameEditText);
         passwordEditText = (EditText) findViewById(R.id.passWordEditText);
