@@ -30,7 +30,7 @@ public class SignUpOrInActivity extends AppCompatActivity implements View.OnClic
         Intent intent;
         switch (v.getId()){
             case R.id.signInImageButton:
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
                 break;
             case R.id.signUpImageButton:

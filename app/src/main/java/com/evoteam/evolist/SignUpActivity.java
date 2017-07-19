@@ -1,5 +1,6 @@
 package com.evoteam.evolist;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -68,8 +69,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Log.d("***", String.valueOf(correctData()));
 
             if(correctData()){
-                Toast.makeText(this, "next level", Toast.LENGTH_SHORT).show();
-                //done
+                Intent intent = new Intent(this, MainActivity.class);
 
             }else{
                 Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();

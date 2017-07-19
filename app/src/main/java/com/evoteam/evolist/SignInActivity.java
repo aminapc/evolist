@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, AddToDoTask.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
