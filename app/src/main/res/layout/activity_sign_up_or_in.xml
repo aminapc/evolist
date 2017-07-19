@@ -23,16 +23,6 @@
         android:layout_marginBottom="29dp"
         android:id="@+id/licenseTextView"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/signup"
-        android:id="@+id/signUpImageButton"
-        android:background="@drawable/bg"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/signInImageButton"
-        android:layout_alignStart="@+id/signInImageButton"/>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
@@ -48,7 +38,17 @@
         app:srcCompat="@drawable/login"
         android:background="@drawable/bg"
         android:id="@+id/signInImageButton"
-        android:layout_below="@+id/signUpImageButton"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/signup"
+        android:id="@+id/signUpImageButton"
+        android:background="@drawable/bg"
+        android:layout_below="@+id/signInImageButton"
+        android:layout_alignLeft="@+id/signInImageButton"
+        android:layout_alignStart="@+id/signInImageButton"/>
 
 </RelativeLayout>

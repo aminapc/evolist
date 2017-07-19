@@ -6,12 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton signInButton;
+    Button signInButton;
     EditText usernameEditText, passwordEditText;
     TextView wrongInformation;
 
@@ -27,7 +26,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     private void init() {
         //button
-        signInButton = (ImageButton) findViewById(R.id.signInButton);
+        signInButton = (Button) findViewById(R.id.signInButton);
         signInButton.setOnClickListener(this);
         //edit texts
         usernameEditText = (EditText) findViewById(R.id.userNameEditText);
