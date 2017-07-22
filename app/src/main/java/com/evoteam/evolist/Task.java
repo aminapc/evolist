@@ -8,6 +8,21 @@ public class Task {
     private String name, day, date, time, description;
     private boolean isImportant;
 
+    public Task(String name,String day,String date,String time,String description, boolean isImportant){
+        setName(name);
+        setDay(day);
+        setDate(date);
+        setTime(time);
+        setDescription(description);
+        setImportant(isImportant);
+    }
+    public Task(String name){
+        this(name, " ", " ", " ", " ", false);
+    }
+    public Task(){
+        this(" ");
+    }
+
     public String getDate() {
         return date;
     }

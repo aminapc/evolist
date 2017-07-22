@@ -1,5 +1,6 @@
 package com.evoteam.evolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,13 +9,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddToDoTask extends AppCompatActivity implements View.OnClickListener {
+public class AddToDoTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText taskName, taskDay, taskDate, taskTime, taskDescription;
     CheckBox taskImportance;
     Button taskDateButton, submit;
 
-    Task currentTask;
+    Task currentTask = new Task();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class AddToDoTask extends AppCompatActivity implements View.OnClickListen
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Add a Task");
         }
+
         init();
     }
 
@@ -33,7 +35,7 @@ public class AddToDoTask extends AppCompatActivity implements View.OnClickListen
         taskTime = (EditText) findViewById(R.id.taskTimeEditText);
         taskDescription = (EditText) findViewById(R.id.taskDescriptionEditText);
 
-        taskImportance = (CheckBox) findViewById(R.id.taskImportanceCheckBox);
+        taskImportance = (CheckBox) findViewById(R.id.taskImportanceCheckBoxInTaskActivity);
 
         taskDateButton = (Button) findViewById(R.id.taskDateButton);
         submit = (Button) findViewById(R.id.taskSubmitButton);
@@ -48,7 +50,11 @@ public class AddToDoTask extends AppCompatActivity implements View.OnClickListen
             case R.id.taskSubmitButton:
                 makingReadyTheTask();
                 if (isCorrectTask()){
-                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+                    MainActivity.tasks.add(currentTask);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(this, "Your Task has been added.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     Toast.makeText(this, "لطفا فیلدهای کارتان را کامل وارد کنید.", Toast.LENGTH_SHORT).show();
                 }
@@ -65,12 +71,14 @@ public class AddToDoTask extends AppCompatActivity implements View.OnClickListen
     }
 
     private void makingReadyTheTask() {
-        currentTask = new Task();
-        currentTask.setName(taskName.getText().toString());
-        currentTask.setDay(taskDay.getText().toString());
-        currentTask.setDate(taskDate.getText().toString());
-        currentTask.setTime(taskTime.getText().toString());
-        currentTask.setDescription(taskDescription.getText().toString());
-        currentTask.setImportant(taskImportance.isChecked());
+
+        currentTask = new Task(taskName.getText().toString(),
+                taskDay.getText().toString(),
+                taskDate.getText().toString(),
+                taskTime.getText().toString(),
+                taskDescription.getText().toString(),
+                taskImportance.isChecked()
+                );
+
     }
 }

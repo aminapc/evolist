@@ -19,9 +19,11 @@
         </activity>
         <activity android:name=".SignUpActivity">
         </activity>
-        <activity android:name=".AddToDoTask">
+        <activity android:name=".AddToDoTaskActivity">
         </activity>
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".TaskActivity">
         </activity>
     </application>
 

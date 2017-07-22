@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, AdapterView.OnItemClickListener {
 
     TextView noTaskTextView;
     TextView usernameTextView;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText searchTasksEditText;
     ListView taskListView;
 
-    ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
 
     @Override
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        task();
         setList();
         textViewVisibility();
     }
@@ -52,26 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         taskListView = (ListView) findViewById(R.id.tasksListView);
     }
 
-    private void task() {
-        Task t1 = new Task();
-        t1.setName("Farzad");
-        Task t2 = new Task();
-        t2.setName("Mana");
-        Task t3 = new Task();
-        t3.setName("Mostafa");
-        Task t4 = new Task();
-        t4.setName("Parsa");
-        tasks.add(t1);
-        tasks.add(t2);
-        tasks.add(t3);
-        tasks.add(t4);
-    }
-
     private void setList() {
         if(tasks.size() != 0){
             ArrayAdapter<Task> adapter =
                     new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tasks);
             taskListView.setAdapter(adapter);
+            taskListView.setOnItemClickListener(this);
 
         }
 
@@ -93,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.addTaskImageButton:
-                Intent intent = new Intent(this, AddToDoTask.class);
+                Intent intent = new Intent(this, AddToDoTaskActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -114,5 +101,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("****", "you clicked the lists");
+        Task clickedTask = tasks.get(position);
+        Intent intent = new Intent(this, TaskActivity.class);
+        Bundle taskBundle = putTheTaskInBundle(clickedTask);
+        intent.putExtra("task", taskBundle);
+        startActivity(intent);
+
+    }
+
+    public Bundle putTheTaskInBundle(Task task){
+        Bundle taskValues = new Bundle();
+        taskValues.putString("name"        , task.getName())       ;
+        taskValues.putString("day"         , task.getDay())        ;
+        taskValues.putString("date"        , task.getDate())       ;
+        taskValues.putString("time"        , task.getTime())       ;
+        taskValues.putString("description" , task.getDescription());
+        taskValues.putBoolean("importance" , task.isImportant())   ;
+        return taskValues;
     }
 }

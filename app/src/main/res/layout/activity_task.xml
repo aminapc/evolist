@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/taskNameEditText"
+                android:id="@+id/taskNameEditTextInTaskActivity"
                 android:layout_weight="1"
                 android:hint="نام را وارد کنید"/>
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/taskDayEditText"
+                android:id="@+id/taskDayEditTextInTaskActivity"
                 android:hint="روز را وارد کنید"/>
 
             <TextView
@@ -84,7 +84,7 @@
                 android:text="DATE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskDateButton"
+                android:id="@+id/taskDateButtonInTaskActivity"
                 android:layout_weight="1"/>
 
             <EditText
@@ -94,7 +94,7 @@
                 android:inputType="date"
                 android:ems="10"
                 android:gravity="right"
-                android:id="@+id/taskDateEditText"
+                android:id="@+id/taskDateEditTextInTaskActivity"
                 android:hint="96.02.02"/>
 
             <TextView
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:ems="10"
-                android:id="@+id/taskTimeEditText"
+                android:id="@+id/taskTimeEditTextInTaskActivity"
                 android:hint="23:23"
                 android:gravity="right"/>
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/taskDescriptionEditText"
+                android:id="@+id/taskDescriptionEditTextInTaskActivity"
                 android:hint="توضیحات اضافه..."
                 android:layout_below="@+id/descriptionTextView"
                 android:layout_alignParentLeft="true"
@@ -195,7 +195,7 @@
                 android:text="submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/taskSubmitButton"
+                android:id="@+id/taskSubmitButtonInTaskActivity"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>
