@@ -53,18 +53,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void task() {
-//        Task t1 = new Task();
-//        t1.setName("Farzad");
-//        Task t2 = new Task();
-//        t2.setName("Mana");
-//        Task t3 = new Task();
-//        t3.setName("Mostafa");
-//        Task t4 = new Task();
-//        t4.setName("Parsa");
-//        tasks.add(t1);
-//        tasks.add(t2);
-//        tasks.add(t3);
-//        tasks.add(t4);
+        Task t1 = new Task();
+        t1.setName("Farzad");
+        Task t2 = new Task();
+        t2.setName("Mana");
+        Task t3 = new Task();
+        t3.setName("Mostafa");
+        Task t4 = new Task();
+        t4.setName("Parsa");
+        tasks.add(t1);
+        tasks.add(t2);
+        tasks.add(t3);
+        tasks.add(t4);
     }
 
     private void setList() {
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             taskListView.setAdapter(adapter);
 
         }
+
+        textViewVisibility();
     }
 
 
