@@ -5,6 +5,7 @@ package com.evoteam.evolist;
  */
 
 public class User {
+
     String firstName, familyName, cityName, emailAddress, username, password;
     boolean licenseAgreement;
 
@@ -13,11 +14,7 @@ public class User {
     }
 
     public void setCityName(String cityName) {
-        if(cityName.length() < 3){
-            this.cityName = cityName;
-        }else{
-            this.cityName = " ";
-        }
+        this.cityName = cityName;
     }
 
     public String getEmailAddress() {

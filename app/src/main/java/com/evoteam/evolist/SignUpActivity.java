@@ -1,20 +1,22 @@
 package com.evoteam.evolist;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
@@ -24,9 +26,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     User currentUser = new User();
 
-    String firstNameText, lastNameText, cityText, emailAddressText,
-            usernameText, passwordText, confirmPasswordText;
-    boolean licenseAgreementIsChecked;
+    public static String response = "no change";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,24 +64,38 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        getDataAndSetUserProfile();
-        if(v.getAlpha() == 1.0 && confirmPassword.getCurrentTextColor() == Color.parseColor("GREEN")){
-            Log.d("***", String.valueOf(correctData()));
-
-            if(correctData()){
-                Intent intent = new Intent(this, MainActivity.class);
-
-            }else{
-                Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        }else{
-            Animation shake = AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.shake);
-            agreementCheckBox.startAnimation(shake);
-            Toast.makeText(this, "not next level!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        getDataAndSetUserProfile();
+//        if(v.getAlpha() == 1.0 && confirmPassword.getCurrentTextColor() == Color.parseColor("GREEN")){
+//
+//            if(correctData()){
+//                if(HttpConnectionManager.isOnline(SignUpActivity.this)) {
+//                    JSONArray signUpJson = getSignUpJson();
+//                    Intent intent = new Intent(this, MainActivity.class);
+//                    myTask sendSignUp = new myTask();
+//                    Log.d("***", signUpJson.toString());
+//                    sendSignUp.execute(signUpJson.toString());
+//
+////                    startActivity(intent);
+//                    Log.d("***", response);
+//                }else{
+//                    Toast.makeText(this, "لطفا دسترسی خود را به اینترنت چک کنید.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }else{
+//                Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//        }else{
+//            Animation shake = AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.shake);
+//            agreementCheckBox.startAnimation(shake);
+//            Toast.makeText(this, "not next level!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        String a = "[{\"first\":\"mana \",\"last\":\"kalantari \",\"email\":\"m.kalantarii98@gmail.com \",\"city\":\"shiraz \",\"username\":\"mana \",\"password\":\"123456 \"}]";
+        Log.d("***", a);
+        myTask sendSignUp = new myTask();
+        sendSignUp.execute(a);
     }
 
     private boolean correctData() {
@@ -125,12 +139,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        confirmPasswordText = String.valueOf(confirmPassword.getText());
-        passwordText = String.valueOf(password.getText());
 
-
-        Log.d("***", String.valueOf(confirmPasswordText == passwordText));
-        if(confirmPasswordText.equals(passwordText))
+        if(confirmPassword.getText().toString().equals(password.getText().toString()))
             confirmPassword.setTextColor(Color.parseColor("GREEN"));
         else
             confirmPassword.setTextColor(Color.parseColor("RED"));
@@ -142,6 +152,38 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void afterTextChanged(Editable s) {
 
     }
+
+    private JSONArray getSignUpJson() {
+        JSONArray signUpJson = new JSONArray();
+        JSONObject jsonValues = new JSONObject();
+        try {
+            jsonValues.put("first", currentUser.getFirstName());
+            jsonValues.put("last", currentUser.getFamilyName());
+            jsonValues.put("email", currentUser.getEmailAddress());
+            jsonValues.put("city", currentUser.getCityName());
+            jsonValues.put("username", currentUser.getUsername());
+            jsonValues.put("password", currentUser.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        signUpJson.put(jsonValues);
+
+        return signUpJson;
+    }
+
+    private class myTask extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            String res;
+            Log.d("***", params[0]);
+            res = HttpConnectionManager.postData(params[0]);
+            return res;
+        }
+
+    }
+
 }
 
 
