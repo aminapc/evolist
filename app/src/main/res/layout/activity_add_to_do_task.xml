@@ -74,35 +74,35 @@
         </LinearLayout>
 
         <LinearLayout
-            android:paddingTop="15dp"
-            android:orientation="horizontal"
+            android:id="@+id/taskDateLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/taskDateLayout">
+            android:orientation="horizontal"
+            android:paddingTop="15dp">
 
-            <Button
-                android:text="DATE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/taskDateButton"
-                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/DatePicker"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/calender"
+                android:background="@drawable/plusback"/>
 
             <EditText
-                android:textColorHint="#33abda"
-                android:layout_width="176dp"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:gravity="right"
                 android:id="@+id/taskDateEditText"
-                android:hint="96.02.02"/>
-
-            <TextView
-                android:text="تاریخ:                   "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="right"
+                android:hint="96.02.02"
+                android:inputType="date"
+                android:textColorHint="#33abda"/>
+
+            <TextView
                 android:id="@+id/taskDateTextView"
-                android:layout_weight="1"/>
+                android:layout_width="63dp"
+                android:layout_height="wrap_content"
+                android:text="تاریخ:                   "/>
 
         </LinearLayout>
 
@@ -113,9 +113,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/taskTimeLayout">
 
+            <ImageButton
+                android:id="@+id/TimePicker"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/time1"
+                android:background="@drawable/plusback"/>
+
             <EditText
                 android:textColorHint="#33abda"
-                android:layout_width="265dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:ems="10"
@@ -125,10 +133,10 @@
 
             <TextView
                 android:text="زمان:                      "
-                android:layout_width="wrap_content"
+                android:layout_width="63dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskTimeTextView"
-                android:layout_weight="1"/>
+                />
         </LinearLayout>
 
         <RelativeLayout

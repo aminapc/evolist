@@ -7,13 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class AddToDoTaskActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText taskName, taskDay, taskDate, taskTime, taskDescription;
+    static EditText taskName, taskDay, taskDate, taskTime, taskDescription;
     CheckBox taskImportance;
-    Button taskDateButton, submit;
+    Button  submit;
+    ImageButton DatePicker , TimePicker;
 
     Task currentTask = new Task();
 
@@ -37,10 +39,12 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
 
         taskImportance = (CheckBox) findViewById(R.id.taskImportanceCheckBoxInTaskActivity);
 
-        taskDateButton = (Button) findViewById(R.id.taskDateButton);
+        DatePicker = (ImageButton) findViewById(R.id.DatePicker);
+        TimePicker = (ImageButton) findViewById(R.id.TimePicker);
         submit = (Button) findViewById(R.id.taskSubmitButton);
 
-        taskDateButton.setOnClickListener(this);
+        TimePicker.setOnClickListener(this);
+        DatePicker.setOnClickListener(this);
         submit.setOnClickListener(this);
     }
 
@@ -58,6 +62,13 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
                 }else{
                     Toast.makeText(this, "لطفا فیلدهای کارتان را کامل وارد کنید.", Toast.LENGTH_SHORT).show();
                 }
+
+                break;
+            case R.id.DatePicker:
+                Intent intent = new Intent(this, DatePickerActivity.class);
+                startActivity(intent);
+                break ;
+            case R.id.TimePicker:
 
                 break;
         }

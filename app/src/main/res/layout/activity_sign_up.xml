@@ -96,7 +96,7 @@
         android:id="@+id/imageView3"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        app:srcCompat="@drawable/avatar"
+        app:srcCompat="@drawable/avatar2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -146,13 +146,13 @@
         android:layout_alignParentEnd="true"/>
 
     <Button
-        android:background="@drawable/signupbutton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/signUpButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:background="@drawable/signupbutton2"/>
 
     <CheckBox
         android:layout_width="wrap_content"
