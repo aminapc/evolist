@@ -31,51 +31,51 @@ public class DatePickerActivity extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
 
                 switch (month) {
-                    case 1:
+                    case 0:
                         date.setText(String.format("%d %s %d", year, "JANUARY", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 2:
+                    case 1:
                         date.setText(String.format("%d %s %d", year, "FEBRUARY", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 3:
+                    case 2:
                         date.setText(String.format("%d %s %d", year, "MARCH", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 4:
+                    case 3:
                         date.setText(String.format("%d %s %d", year, "APRIL", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 5:
+                    case 4:
                         date.setText(String.format("%d %s %d", year, "MAY", day));
 
                         break;
-                    case 6:
+                    case 5:
                         date.setText(String.format("%d %s %d", year, "JUNE", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 7:
+                    case 6:
                         date.setText(String.format("%d %s %d", year, "JULLY", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 8:
+                    case 7:
                         date.setText(String.format("%d %s %d", year, "AUGUST", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 9:
+                    case 8:
                         date.setText(String.format("%d %s %d", year, "SEPTEMBER", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 10:
+                    case 9:
                         date.setText(String.format("%d %s %d", year, "OCTOBER", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 11:
+                    case 10:
                         date.setText(String.format("%d %s %d", year, "NOVEMBER", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
-                    case 12:
+                    case 11:
                         date.setText(String.format("%d %s %d", year, "DECEMBER", day));
                         AddToDoTaskActivity.taskDate.setText(date.getText());
                         break;
