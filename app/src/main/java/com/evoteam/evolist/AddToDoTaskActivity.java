@@ -65,12 +65,11 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
 
                 break;
             case R.id.DatePicker:
-                Intent intent1 = new Intent(this, DatePickerActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent(this, DatePickerActivity.class);
+                startActivity(intent);
                 break ;
             case R.id.TimePicker:
-                Intent intent2 = new Intent(this, TimePickerActivity.class);
-                startActivity(intent2);
+
                 break;
         }
     }
