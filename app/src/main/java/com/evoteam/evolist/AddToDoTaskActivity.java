@@ -15,7 +15,7 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
     static EditText taskName, taskDay, taskDate, taskTime, taskDescription;
     CheckBox taskImportance;
     Button  submit;
-    ImageButton DatePicker , TimePicker;
+    ImageButton DatePickerImageButton, TimePickerImageButton;
 
     Task currentTask = new Task();
 
@@ -39,23 +39,24 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
 
         taskImportance = (CheckBox) findViewById(R.id.taskImportanceCheckBoxInTaskActivity);
 
-        DatePicker = (ImageButton) findViewById(R.id.DatePicker);
-        TimePicker = (ImageButton) findViewById(R.id.TimePicker);
+        DatePickerImageButton = (ImageButton) findViewById(R.id.DatePicker);
+        TimePickerImageButton = (ImageButton) findViewById(R.id.TimePicker);
         submit = (Button) findViewById(R.id.taskSubmitButton);
 
-        TimePicker.setOnClickListener(this);
-        DatePicker.setOnClickListener(this);
+        TimePickerImageButton.setOnClickListener(this);
+        DatePickerImageButton.setOnClickListener(this);
         submit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.taskSubmitButton:
                 makingReadyTheTask();
                 if (isCorrectTask()){
                     MainActivity.tasks.add(currentTask);
-                    Intent intent = new Intent(this, MainActivity.class);
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(this, "Your Task has been added.", Toast.LENGTH_SHORT).show();
                     finish();
@@ -65,18 +66,19 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
 
                 break;
             case R.id.DatePicker:
-                Intent intent = new Intent(this, DatePickerActivity.class);
+                intent = new Intent(this, DatePickerActivity.class);
                 startActivity(intent);
                 break ;
             case R.id.TimePicker:
-
+                intent = new Intent(this, TimePickerActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
     private boolean isCorrectTask() {
-        if(currentTask.getName() != " " && currentTask.getDay() != " "
-                && currentTask.getDate() != " " && currentTask.getTime() != " ")
+        if(!currentTask.getName().equals(" ") && !currentTask.getDay().equals(" ")
+                && !currentTask.getDate().equals(" ") && !currentTask.getTime().equals(" "))
             return true;
         return false;
     }

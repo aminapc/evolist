@@ -3,6 +3,7 @@ package com.evoteam.evolist;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ import java.net.URL;
 public class HttpConnectionManager {
 
     static HttpURLConnection urlConnection = null;
-    static  String serverUrl = "http://198.143.181.24:3004/api/";
+    static  String serverUrl = "http://23.227.201.71:3004/api/login";
 
     public HttpConnectionManager (String serverUrl)
     {
@@ -64,16 +65,14 @@ public class HttpConnectionManager {
         }
     }
 
-    public static String postData(String json) {
-        Log.d("***", "hewe aaa");
+    public static String postSignUp(String json) {
         try {
-
             URL url = new URL(serverUrl);
             urlConnection = (HttpURLConnection) url.openConnection();
             String urlParameters = json;
-
+            urlConnection.setRequestProperty("Authorization", "basic " +
+                    Base64.encodeToString(("farzad:767676").getBytes(), Base64.NO_WRAP));
             urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setUseCaches(false);
@@ -88,17 +87,53 @@ public class HttpConnectionManager {
             dStream.close();
             InputStream is = urlConnection.getInputStream();
             String response = inputStreamToString(is);
-            Log.d("***", "here");
+            Log.d("***post", response);
             SignUpActivity.response = response;
             return response;
 
 
         } catch (MalformedURLException e) {
-            Log.d("****", "1");
             return null;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("****", "2");
+            return null;
+        }
+
+    }
+
+    public static String postSignIn(String json) {
+        try {
+            URL url = new URL(serverUrl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            String urlParameters = json;
+            urlConnection.setRequestProperty("Authorization", "basic " +
+                    Base64.encodeToString(("farzad:767676").getBytes(), Base64.NO_WRAP));
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+            urlConnection.setUseCaches(false);
+            urlConnection.setAllowUserInteraction(false);
+            urlConnection.setRequestProperty("Host", "android.schoolportal.gr");
+            urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(10000);
+
+            urlConnection.connect();
+
+            OutputStreamWriter dStream = new OutputStreamWriter(
+                    urlConnection.getOutputStream(), "UTF-8");
+            dStream.write(urlParameters);
+            dStream.flush();
+            dStream.close();
+            InputStream is = urlConnection.getInputStream();
+            String response = inputStreamToString(is);
+            return response;
+
+
+        } catch (MalformedURLException e) {
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
 

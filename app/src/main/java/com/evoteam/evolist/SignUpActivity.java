@@ -1,5 +1,8 @@
 package com.evoteam.evolist;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,15 +11,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
@@ -47,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         emailAddress = (EditText) findViewById(R.id.emailEditText);
         username = (EditText) findViewById(R.id.choosingUsernameEditText);
         password = (EditText) findViewById(R.id.choosingPasswordEditText);
+        password.addTextChangedListener(this);
         confirmPassword = (EditText) findViewById(R.id.confirmPasswordEditText);
         confirmPassword.addTextChangedListener(this);
         agreementCheckBox = (CheckBox) findViewById(R.id.licenseAgreementCheckBox);
@@ -64,39 +66,41 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-//        getDataAndSetUserProfile();
-//        if(v.getAlpha() == 1.0 && confirmPassword.getCurrentTextColor() == Color.parseColor("GREEN")){
-//
-//            if(correctData()){
-//                if(HttpConnectionManager.isOnline(SignUpActivity.this)) {
-//                    JSONArray signUpJson = getSignUpJson();
-//                    Intent intent = new Intent(this, MainActivity.class);
-//                    myTask sendSignUp = new myTask();
-//                    Log.d("***", signUpJson.toString());
-//                    sendSignUp.execute(signUpJson.toString());
-//
-////                    startActivity(intent);
-//                    Log.d("***", response);
-//                }else{
-//                    Toast.makeText(this, "لطفا دسترسی خود را به اینترنت چک کنید.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//            }else{
-//                Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//        }else{
-//            Animation shake = AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.shake);
-//            agreementCheckBox.startAnimation(shake);
-//            Toast.makeText(this, "not next level!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        String a = "[{\"first\":\"mana \",\"last\":\"kalantari \",\"email\":\"m.kalantarii98@gmail.com \",\"city\":\"shiraz \",\"username\":\"mana \",\"password\":\"123456 \"}]";
-        Log.d("***", a);
-        myTask sendSignUp = new myTask();
-        sendSignUp.execute(a);
+        getDataAndSetUserProfile();
+        if(v.getAlpha() == 1.0){
+            if(confirmPassword.getCurrentTextColor() == Color.parseColor("GREEN")) {
+
+                if (correctData()) {
+                    if (HttpConnectionManager.isOnline(SignUpActivity.this)) {
+                        String signUpValues = getSignUpString();
+
+                        myTask sendSignUp = new myTask(SignUpActivity.this);
+                        Log.d("***", signUpValues);
+                        sendSignUp.execute(signUpValues);
+
+//                        SystemClock.sleep(1000);
+
+
+                    } else {
+                        Toast.makeText(this, "لطفا دسترسی خود را به اینترنت چک کنید.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(this, "لطفا مطمئن شوید که فیلدهای ضروری را درست پر کرده اید.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }else{
+                Toast.makeText(this, "رمز کاربری خود را تایید کنید.", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+            Animation shake = AnimationUtils.loadAnimation(SignUpActivity.this, R.anim.shake);
+            agreementCheckBox.startAnimation(shake);
+            Toast.makeText(this, "not next level!", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
+
 
     private boolean correctData() {
         if(!currentUser.getFirstName().equals(" ")  && !currentUser.getFamilyName().equals(" ")
@@ -153,35 +157,65 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private JSONArray getSignUpJson() {
-        JSONArray signUpJson = new JSONArray();
-        JSONObject jsonValues = new JSONObject();
-        try {
-            jsonValues.put("first", currentUser.getFirstName());
-            jsonValues.put("last", currentUser.getFamilyName());
-            jsonValues.put("email", currentUser.getEmailAddress());
-            jsonValues.put("city", currentUser.getCityName());
-            jsonValues.put("username", currentUser.getUsername());
-            jsonValues.put("password", currentUser.getPassword());
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private String getSignUpString() {
+        String total = "";
+        total += "first" + "=" + currentUser.getFirstName() + "&";
+        total += "last" + "=" + currentUser.getFamilyName() + "&";
+        total += "email" + "=" + currentUser.getEmailAddress() + "&";
+        total += "city" + "=" + currentUser.getCityName() + "&";
+        total += "username" + "=" + currentUser.getUsername() + "&";
+        total += "password" + "=" + currentUser.getPassword();
+
+        return total;
+    }
+
+    private void whatToDo() {
+
+        Log.d("***", response);
+        if (response.equals("no change")){
+            Toast.makeText(this, "دوباره تلاش کنید.", Toast.LENGTH_SHORT).show();
+        }else if (response.equals("user registered")){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else if (response.equals("Username already exists")){
+            Toast.makeText(this, "نام کاربری قبلا استفاده شده است.", Toast.LENGTH_SHORT).show();
+            username.requestFocus();
+        }else   /*  if(response.equals("Email already exists"))  */  {
+            Toast.makeText(this, "این ایمیل قبلا ثبت شده است.", Toast.LENGTH_SHORT).show();
+            emailAddress.requestFocus();
         }
-
-        signUpJson.put(jsonValues);
-
-        return signUpJson;
     }
 
     private class myTask extends AsyncTask<String, String, String>{
 
+        private ProgressDialog authProgressDialog;
+
+        private myTask(Activity appActivity) {
+            authProgressDialog = new ProgressDialog(appActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            authProgressDialog.setMessage("در حال برقراری ارتباط با سرور ...");
+            authProgressDialog.show();
+        }
+
         @Override
         protected String doInBackground(String... params) {
+
             String res;
-            Log.d("***", params[0]);
-            res = HttpConnectionManager.postData(params[0]);
+            res = HttpConnectionManager.postSignUp(params[0]);
             return res;
         }
 
+        @Override
+        protected void onPostExecute(String s) {
+            authProgressDialog.cancel();
+            SignUpActivity.response = s;
+            super.onPostExecute(s);
+            whatToDo();
+        }
     }
 
 }
