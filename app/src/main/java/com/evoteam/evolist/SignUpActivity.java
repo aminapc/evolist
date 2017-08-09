@@ -121,14 +121,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     public void getDataAndSetUserProfile() {
         try {
-            currentUser.setFirstName(firstName.getText().toString() + " ");
-            currentUser.setFamilyName(lastName.getText().toString() + " ");
-            currentUser.setCityName(city.getText().toString() + " ");
-            currentUser.setEmailAddress(emailAddress.getText().toString() + " ");
-            currentUser.setUsername(username.getText().toString() + " ");
+            currentUser.setFirstName(firstName.getText().toString());
+            currentUser.setFamilyName(lastName.getText().toString());
+            currentUser.setCityName(city.getText().toString());
+            currentUser.setEmailAddress(emailAddress.getText().toString());
+            currentUser.setUsername(username.getText().toString());
             currentUser.setLicenseAgreement(agreementCheckBox.isChecked());
             if (password.getText().toString().equals(confirmPassword.getText().toString()))
-                currentUser.setPassword(password.getText().toString() + " ");
+                currentUser.setPassword(password.getText().toString());
             else
                 currentUser.setPassword(" ");
         }catch (Exception e){
@@ -206,6 +206,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             String res;
             res = HttpConnectionManager.postSignUp(params[0]);
+            Log.d("***response", res);
             return res;
         }
 

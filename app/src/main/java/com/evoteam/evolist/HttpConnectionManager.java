@@ -101,6 +101,8 @@ public class HttpConnectionManager {
 
     }
 
+    //            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
     public static String postSignIn(String json) {
         try {
             URL url = new URL(serverUrl);
@@ -109,17 +111,13 @@ public class HttpConnectionManager {
             urlConnection.setRequestProperty("Authorization", "basic " +
                     Base64.encodeToString(("farzad:767676").getBytes(), Base64.NO_WRAP));
             urlConnection.setRequestMethod("GET");
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setUseCaches(false);
-            urlConnection.setAllowUserInteraction(false);
             urlConnection.setRequestProperty("Host", "android.schoolportal.gr");
             urlConnection.setConnectTimeout(10000);
             urlConnection.setReadTimeout(10000);
-
             urlConnection.connect();
-
             OutputStreamWriter dStream = new OutputStreamWriter(
                     urlConnection.getOutputStream(), "UTF-8");
             dStream.write(urlParameters);
@@ -127,6 +125,8 @@ public class HttpConnectionManager {
             dStream.close();
             InputStream is = urlConnection.getInputStream();
             String response = inputStreamToString(is);
+            Log.d("***post", response);
+            SignUpActivity.response = response;
             return response;
 
 
@@ -138,6 +138,7 @@ public class HttpConnectionManager {
         }
 
     }
+
 
 }
 

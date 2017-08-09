@@ -71,7 +71,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     e.printStackTrace();
                 }
                 myTask sendSignIn = new myTask(SignInActivity.this);
-                sendSignIn.execute(jsonArrayToSend.toString());
+                String a = "username=farzad&password=123456789";
+                sendSignIn.execute(a);
             }else{
                 Toast.makeText(this, "لطفا دسترسی خود را به اینترنت چک کنید.", Toast.LENGTH_SHORT).show();
             }
@@ -98,9 +99,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         protected String doInBackground(String... params) {
 
             String res;
-            Log.d("***", params.toString());
+            Log.d("***params", params[0]);
             res = HttpConnectionManager.postSignIn(params[0]);
-            Log.d("***doIn", res);
+            Log.d("***response", res);
             return res;
         }
 
