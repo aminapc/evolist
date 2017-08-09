@@ -4,20 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-public class AddToDoTaskActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddToDoTaskActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
-    static EditText taskName, taskDay, taskDate, taskTime, taskDescription;
+    static EditText taskName, taskDate, taskTime, taskDescription;
     CheckBox taskImportance;
     Button  submit;
     ImageButton DatePickerImageButton, TimePickerImageButton;
+    Spinner taskDay;
 
     Task currentTask = new Task();
+
+    String day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +34,13 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
         }
 
         init();
+        makingReadyTheSpinner();
     }
 
     private void init() {
         taskName = (EditText) findViewById(R.id.taskNameEditText);
-        taskDay = (EditText) findViewById(R.id.taskDayEditText);
+        taskDay = (Spinner) findViewById(R.id.spinnerAddTask);
+        taskDay.setOnItemSelectedListener(this);
         taskDate = (EditText) findViewById(R.id.taskDateEditText);
         taskTime = (EditText) findViewById(R.id.taskTimeEditText);
         taskDescription = (EditText) findViewById(R.id.taskDescriptionEditText);
@@ -46,6 +54,14 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
         TimePickerImageButton.setOnClickListener(this);
         DatePickerImageButton.setOnClickListener(this);
         submit.setOnClickListener(this);
+    }
+
+    public void makingReadyTheSpinner() {
+        String[] days = getResources().getStringArray(R.array.days);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, days);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        taskDay.setAdapter(adapter);
     }
 
     @Override
@@ -86,7 +102,7 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
     private void makingReadyTheTask() {
 
         currentTask = new Task(taskName.getText().toString(),
-                taskDay.getText().toString(),
+                day,
                 taskDate.getText().toString(),
                 taskTime.getText().toString(),
                 taskDescription.getText().toString(),
@@ -94,4 +110,21 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
                 );
 
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        day = (String)parent.getSelectedItem();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent){
+
+    }
+
 }
+

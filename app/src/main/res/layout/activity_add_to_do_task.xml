@@ -55,21 +55,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/taskDayLayout">
 
-            <EditText
-                android:textColorHint="#33abda"
-                android:layout_width="264dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/taskDayEditText"
-                android:hint="روز را وارد کنید"/>
 
+            <Spinner
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerAddTask"
+                android:layout_weight="2"
+                android:spinnerMode="dialog"/>
             <TextView
-                android:text="روز:                         "
+                android:text="روز:                  "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/taskDay"
                 android:layout_weight="1"/>
+
 
         </LinearLayout>
 
