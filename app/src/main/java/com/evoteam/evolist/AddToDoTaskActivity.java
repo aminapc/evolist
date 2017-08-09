@@ -55,10 +55,10 @@ public class AddToDoTaskActivity extends AppCompatActivity implements View.OnCli
             case R.id.taskSubmitButton:
                 makingReadyTheTask();
                 if (isCorrectTask()){
-                    MainActivity.tasks.add(currentTask);
+                    MainActivity.dbManager.addTask(currentTask);
                     intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(this, "Your Task has been added.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Your Task has been added." + MainActivity.dbManager.getDataBaseSize(), Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
                     Toast.makeText(this, "لطفا فیلدهای کارتان را کامل وارد کنید.", Toast.LENGTH_SHORT).show();

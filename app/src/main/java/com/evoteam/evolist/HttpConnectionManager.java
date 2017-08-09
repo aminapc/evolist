@@ -22,7 +22,7 @@ public class HttpConnectionManager {
 
     static HttpURLConnection urlConnection = null;
     static  String serverUrl = "http://23.227.201.71:3004/api/login";
-
+    /*"https://farzad007.herokuapp.com/api/signup";*/
     public HttpConnectionManager (String serverUrl)
     {
         this.serverUrl = serverUrl;

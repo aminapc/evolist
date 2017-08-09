@@ -16,11 +16,13 @@ public class DataBaseManager {
     private Context mContext;
     private SQLiteDatabase mSQLiteDatabase;
 
-    ArrayList taskList;
+    private ArrayList taskList;
+    private static TaskCursorWrapper cursor;
 
     public DataBaseManager(Context context){
         mContext = context.getApplicationContext();
         mSQLiteDatabase = new DataBaseHelper(mContext).getWritableDatabase();
+        cursor = queryTask();
     }
 
     public void addTask(Task currentTask){
@@ -36,14 +38,13 @@ public class DataBaseManager {
         values.put(DataBaseSchema.Task.culs.DATE        , currentTask.getDate());
         values.put(DataBaseSchema.Task.culs.TIME        , currentTask.getTime());
         values.put(DataBaseSchema.Task.culs.DESCRIPTION , currentTask.getDescription());
-        values.put(DataBaseSchema.Task.culs.ISIMPORTANT , currentTask.isImportant());
+        values.put(DataBaseSchema.Task.culs.ISIMPORTANT , String.valueOf(currentTask.isImportant()));
 
         return values;
     }
 
-    public ArrayList getFavorite(){
+    public ArrayList getTasks(){
         taskList = new ArrayList<>();
-        TaskCursorWrapper cursor = queryTask();
 
         cursor.moveToFirst();
 
@@ -68,6 +69,21 @@ public class DataBaseManager {
                 + " and " + DataBaseSchema.Task.culs.DAY + "=" + "'" + currentTask.getDay() + "'"
                 + " and " + DataBaseSchema.Task.culs.DATE + "=" + "'" + currentTask.getDate() + "'"
                 + " and " + DataBaseSchema.Task.culs.TIME + "=" + "'" + currentTask.getTime() + "'", null);
+    }
+
+    private int databaseSize() {
+        int size = 0;
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            size ++;
+            cursor.moveToNext();
+        }
+        return size;
+    }
+
+    public int getDataBaseSize() {
+        int size = databaseSize();
+        return size;
     }
 
 }

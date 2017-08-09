@@ -171,7 +171,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void whatToDo() {
 
-        Log.d("***", response);
         if (response.equals("no change")){
             Toast.makeText(this, "دوباره تلاش کنید.", Toast.LENGTH_SHORT).show();
         }else if (response.equals("user registered")){
@@ -180,9 +179,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }else if (response.equals("Username already exists")){
             Toast.makeText(this, "نام کاربری قبلا استفاده شده است.", Toast.LENGTH_SHORT).show();
             username.requestFocus();
-        }else   /*  if(response.equals("Email already exists"))  */  {
+        }else if(response.equals("Email already exists")) {
             Toast.makeText(this, "این ایمیل قبلا ثبت شده است.", Toast.LENGTH_SHORT).show();
             emailAddress.requestFocus();
+        }else{
+            Toast.makeText(this, "خطا در اتصال با سرور...", Toast.LENGTH_SHORT).show();
         }
     }
 

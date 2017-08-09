@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -24,14 +23,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText searchTasksEditText;
     ListView taskListView;
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static ArrayList<Task> tasksArrayList;
 
+    public static DataBaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        setTaskLists();
         setList();
         textViewVisibility();
     }
@@ -51,12 +52,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //list view
         taskListView = (ListView) findViewById(R.id.tasksListView);
+
+        //arrayList
+        tasksArrayList = new ArrayList<>();
+
+        //dataBase manager
+        dbManager = new DataBaseManager(this);
+    }
+
+    private void setTaskLists() {
+        tasksArrayList = dbManager.getTasks();
     }
 
     private void setList() {
-        if(tasks.size() != 0){
-            ArrayAdapter<Task> adapter =
-                    new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tasks);
+        if(tasksArrayList.size() != 0){
+            TaskAdapter adapter =
+                    new TaskAdapter(this, tasksArrayList);
             taskListView.setAdapter(adapter);
             taskListView.setOnItemClickListener(this);
 
@@ -67,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void textViewVisibility() {
-        if (tasks.size() != 0) {
+        if (tasksArrayList.size() != 0) {
             taskListView.setVisibility(View.VISIBLE);
             noTaskTextView.setVisibility(View.INVISIBLE);
         } else {
@@ -106,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d("****", "you clicked the lists");
-        Task clickedTask = tasks.get(position);
+        Task clickedTask = tasksArrayList.get(position);
         Intent intent = new Intent(this, TaskActivity.class);
         Bundle taskBundle = putTheTaskInBundle(clickedTask);
         intent.putExtra("task", taskBundle);
