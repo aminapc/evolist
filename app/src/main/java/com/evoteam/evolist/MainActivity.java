@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText searchTasksEditText;
     ListView taskListView;
 
-    public static ArrayList<Task> tasksArrayList;
+    private static ArrayList<Task> tasksArrayList;
+    private static ArrayList<Task> searchTasksArrayList;
 
     public static DataBaseManager dbManager;
 
@@ -44,14 +45,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         init();
         setTaskLists();
-        setList();
+        setList(tasksArrayList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setTaskLists();
-        setList();
+        searchTasksEditText.setText("");
+        setList(tasksArrayList);
     }
 
     private void init() {
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //arrayList
         tasksArrayList = new ArrayList<>();
+        searchTasksArrayList = new ArrayList<>();
 
         //dataBase manager
         dbManager = new DataBaseManager(this);
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tasksArrayList = dbManager.getTasks();
     }
 
-    private void setList() {
+    private void setList(ArrayList tasksArrayList) {
         if(tasksArrayList.size() != 0){
             TaskAdapter adapter =
                     new TaskAdapter(this, tasksArrayList);
@@ -129,11 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        textViewVisibility();
+        textViewVisibility(tasksArrayList);
     }
 
-    private void textViewVisibility() {
-        if (tasksArrayList.size() != 0) {
+    private void textViewVisibility(ArrayList list) {
+        if (list.size() != 0) {
             taskListView.setVisibility(View.VISIBLE);
             noTaskTextView.setVisibility(View.INVISIBLE);
         } else {
@@ -156,22 +159,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        String text = s.toString().toLowerCase();
+        if(!text.isEmpty()){
+            clearArrayList(searchTasksArrayList);
+        }else{
+            setList(tasksArrayList);
+        }
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        String text = s.toString().toLowerCase();
+        if(!text.isEmpty()){
+            search(text);
+        }else{
+            setList(tasksArrayList);
+        }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
+        String text = s.toString().toLowerCase();
+        if(!text.isEmpty()){
+            setList(searchTasksArrayList);
+        }else{
+            setList(tasksArrayList);
+        }
+    }
 
+    private void clearArrayList(ArrayList list){
+        for (int i = 0 ; i < list.size() ; i ++){
+            list.remove(0);
+        }
+    }
+
+    private void search(String text) {
+        clearArrayList(searchTasksArrayList);
+        for (int i = 0 ; i < tasksArrayList.size() ; i ++){
+            Task currentTask = tasksArrayList.get(i);
+            if (currentTask.getName().contains(text)){
+                Log.d("***", currentTask.toString());
+                searchTasksArrayList.add(currentTask);
+            }
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("****", "you clicked the lists");
         Task clickedTask = tasksArrayList.get(position);
         Intent intent = new Intent(this, TaskActivity.class);
         Bundle taskBundle = putTheTaskInBundle(clickedTask);
@@ -189,52 +223,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         taskValues.putString("description" , task.getDescription());
         taskValues.putBoolean("importance" , task.isImportant())   ;
         return taskValues;
-    }
-
-    //requests to server
-    private class Request extends AsyncTask<String, String, String>{
-
-        private ProgressDialog authProgressDialog;
-        private String job;
-
-        private Request(Activity appActivity) {
-            authProgressDialog = new ProgressDialog(appActivity);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            authProgressDialog.setMessage("در حال برقراری ارتباط با سرور ...");
-            authProgressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String result;
-            job = params[0];
-            switch (job){
-                case "post":
-                    result = HttpConnectionManager.postData(params[1]);
-                    Log.d("***", params[1]);
-                    Log.d("***responsesend", result);
-                    break;
-                case "get":
-                    result = HttpConnectionManager.getData();
-                    Log.d("***responseget", result);
-                    break;
-                default:
-                    break;
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            authProgressDialog.cancel();
-            SignUpActivity.response = s;
-            super.onPostExecute(s);
-        }
     }
 
     private void makeSureToSendDatas(final String datas) {
@@ -317,5 +305,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setNegativeButton("No", null);
 
         builder.show();
+    }
+
+    //requests to server
+    private class Request extends AsyncTask<String, String, String>{
+
+        private ProgressDialog authProgressDialog;
+        private String job;
+
+        private Request(Activity appActivity) {
+            authProgressDialog = new ProgressDialog(appActivity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            authProgressDialog.setMessage("در حال برقراری ارتباط با سرور ...");
+            authProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result;
+            job = params[0];
+            switch (job){
+                case "post":
+                    result = HttpConnectionManager.postData(params[1]);
+                    postingToDosResult(result);
+                    break;
+                case "get":
+                    result = HttpConnectionManager.getData();
+                    gettingToDosResult(result);
+                    break;
+                default:
+                    break;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            authProgressDialog.cancel();
+            SignUpActivity.response = s;
+            super.onPostExecute(s);
+        }
+    }
+
+    private void postingToDosResult(String result) {
+
+    }
+
+    private void gettingToDosResult(String result){
+
     }
 }
