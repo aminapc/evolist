@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-    final static int VERSION = 1;
+    final static int VERSION = 2;
     final static String DATABASE_NAME = "dic.db";
 
     public DataBaseHelper(Context context) {
@@ -18,14 +18,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + DataBaseSchema.Task.NAME + "(" +
+        db.execSQL("create table " + DataBaseSchema.TaskDataBase.NAME + "(" +
                 " _id integer primary key autoincrement, " +
-                DataBaseSchema.Task.culs.NAME + ", " +
-                DataBaseSchema.Task.culs.DAY + ", " +
-                DataBaseSchema.Task.culs.DATE + ", " +
-                DataBaseSchema.Task.culs.TIME + ", " +
-                DataBaseSchema.Task.culs.DESCRIPTION + ", " +
-                DataBaseSchema.Task.culs.ISIMPORTANT +
+                DataBaseSchema.TaskDataBase.cols.NAME + ", " +
+                DataBaseSchema.TaskDataBase.cols.DAY + ", " +
+                DataBaseSchema.TaskDataBase.cols.DATE + ", " +
+                DataBaseSchema.TaskDataBase.cols.TIME + ", " +
+                DataBaseSchema.TaskDataBase.cols.DESCRIPTION + ", " +
+                DataBaseSchema.TaskDataBase.cols.ISIMPORTANT +
                 ")"
         );
     }

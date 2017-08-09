@@ -7,12 +7,12 @@ package com.evoteam.evolist;
 public class DataBaseSchema {
 
     //table
-    public static final class Task {
+    public static final class TaskDataBase {
         //table's name
         public static final String NAME = "favorite_table";
 
         //defining each column
-        public static final class culs {
+        public static final class cols {
             public static final String NAME        = "name";
             public static final String DAY         = "day";
             public static final String DATE        = "date";
