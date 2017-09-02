@@ -21,10 +21,11 @@ import java.net.URL;
 public class HttpConnectionManager {
 
     static HttpURLConnection urlConnection = null;
-    static  String serverSignINUrl = "http://23.227.201.71:3004/api/signin";
-    static  String serverSignUpUrl = "http://23.227.201.71:3004/api/signin";
-    static  String serverSendDataUrl = "http://23.227.201.71:3004/api/signin";
-    static  String serverGetDataUrl = "http://23.227.201.71:3004/api/signin";
+    final static String saeedURL = "https://farzad001.herokuapp.com/api/signup";
+    final static  String serverSignINUrl    = "http://23.227.201.71:3001/api/signin?username";
+    final static  String serverSignUpUrl    = "http://23.227.201.71:3001/api/signup";
+    final static  String serverSendDataUrl  = "http://23.227.201.71:3001/api/signin";
+    final static  String serverGetDataUrl   = "http://23.227.201.71:3001/api/signin";
     /*"https://farzad007.herokuapp.com/api/signup";*/
 
     public static boolean isOnline(Context context) {
@@ -88,8 +89,6 @@ public class HttpConnectionManager {
             dStream.close();
             InputStream is = urlConnection.getInputStream();
             String response = inputStreamToString(is);
-            Log.d("***post", response);
-            SignUpActivity.response = response;
             return response;
 
 
@@ -111,7 +110,7 @@ public class HttpConnectionManager {
             String urlParameters = json;
             urlConnection.setRequestProperty("Authorization", "basic " +
                     Base64.encodeToString(("farzad:767676").getBytes(), Base64.NO_WRAP));
-            urlConnection.setRequestMethod("POST");
+//            urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setUseCaches(false);
@@ -119,15 +118,14 @@ public class HttpConnectionManager {
             urlConnection.setConnectTimeout(10000);
             urlConnection.setReadTimeout(10000);
             urlConnection.connect();
-            OutputStreamWriter dStream = new OutputStreamWriter(
-                    urlConnection.getOutputStream(), "UTF-8");
-            dStream.write(urlParameters);
-            dStream.flush();
-            dStream.close();
+//            OutputStreamWriter dStream = new OutputStreamWriter(
+//                    urlConnection.getOutputStream(), "UTF-8");
+//            dStream.write(urlParameters);
+//            dStream.flush();
+//            dStream.close();
             InputStream is = urlConnection.getInputStream();
             String response = inputStreamToString(is);
-            Log.d("***post", response);
-            SignUpActivity.response = response;
+
             return response;
 
 
@@ -142,7 +140,8 @@ public class HttpConnectionManager {
 
     public static String postData(String json) {
         try {
-            URL url = new URL(serverSendDataUrl);
+//            URL url = new URL(serverSendDataUrl);
+            URL url = new URL(saeedURL);
             urlConnection = (HttpURLConnection) url.openConnection();
             String urlParameters = json;
             urlConnection.setRequestProperty("Authorization", "basic " +
@@ -164,7 +163,6 @@ public class HttpConnectionManager {
             InputStream is = urlConnection.getInputStream();
             String response = inputStreamToString(is);
             Log.d("***post", response);
-            SignUpActivity.response = response;
             return response;
 
 

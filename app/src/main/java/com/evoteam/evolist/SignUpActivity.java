@@ -27,8 +27,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     User currentUser = new User();
 
-    public static String response = "no change";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return total;
     }
 
-    private void whatToDo() {
+    private void whatToDo(String response) {
 
         if (response.equals("no change")){
             Toast.makeText(this, "دوباره تلاش کنید.", Toast.LENGTH_SHORT).show();
@@ -207,16 +205,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             String res;
             res = HttpConnectionManager.postSignUp(params[0]);
-            Log.d("***response", res);
+            Log.d("***response", res + " ");
             return res;
         }
 
         @Override
         protected void onPostExecute(String s) {
             authProgressDialog.cancel();
-            SignUpActivity.response = s;
             super.onPostExecute(s);
-            whatToDo();
+            whatToDo(String.valueOf(s));
         }
     }
 

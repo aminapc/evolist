@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, AdapterView.OnItemClickListener {
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         //text views
         usernameTextView = (TextView) findViewById(R.id.usernameTextViewMainActivity);
+        usernameTextView.setText(new Date().toString());
+
         noTaskTextView = (TextView) findViewById(R.id.noTaskTextView);
 
         //edit texts
@@ -252,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder .setTitle("Refresh")
                 .setCancelable(true)
                 .setMessage("آیا از به روز کردن اطلاعات خود اطمینان دارید؟")
-                .setIcon(R.drawable.calender)
+                .setIcon(R.drawable.searchicon)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -331,11 +334,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (job){
                 case "post":
                     result = HttpConnectionManager.postData(params[1]);
-                    postingToDosResult(result);
+                    onPostingToDosResult(result);
                     break;
                 case "get":
                     result = HttpConnectionManager.getData();
-                    gettingToDosResult(result);
+                    onGettingToDosResult(result);
                     break;
                 default:
                     break;
@@ -347,16 +350,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String s) {
             authProgressDialog.cancel();
-            SignUpActivity.response = s;
             super.onPostExecute(s);
         }
     }
 
-    private void postingToDosResult(String result) {
+    private void onPostingToDosResult(String result) {
 
     }
 
-    private void gettingToDosResult(String result){
+    private void onGettingToDosResult(String result){
 
     }
 }
